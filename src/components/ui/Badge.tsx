@@ -2,29 +2,27 @@
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'purple';
+  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'radar';
   size?: 'sm' | 'md';
 }
 
 export function Badge({ children, variant = 'default', size = 'sm' }: BadgeProps) {
   const variantClasses = {
-    default: 'bg-slate-700 text-slate-300',
-    success: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-    warning: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
-    danger: 'bg-red-500/20 text-red-400 border border-red-500/30',
-    info: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-    purple: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+    default: 'bg-white/5 text-neutral-400 border border-white/5',
+    success: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    warning: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+    danger: 'bg-red-500/10 text-red-400 border border-red-500/20',
+    info: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    radar: 'bg-radar-500/10 text-radar-400 border border-radar-500/20',
   };
 
   const sizeClasses = {
-    sm: 'px-2 py-0.5 text-xs',
-    md: 'px-3 py-1 text-sm',
+    sm: 'px-2 py-0.5 text-[10px] tracking-wider uppercase font-semibold',
+    md: 'px-2.5 py-1 text-xs font-medium',
   };
 
   return (
-    <span
-      className={`inline-flex items-center font-medium rounded-full ${variantClasses[variant]} ${sizeClasses[size]}`}
-    >
+    <span className={`inline-flex items-center rounded-md ${variantClasses[variant]} ${sizeClasses[size]}`}>
       {children}
     </span>
   );
