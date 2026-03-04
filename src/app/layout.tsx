@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Upskill Radar - AI Career Intelligence',
+  title: 'Upskill Radar | Know What to Learn Next',
   description:
-    'Stop guessing what to learn. The Upskill Radar analyzes your skills against real market demand, identifies your exact gaps, and builds a 15-minute-per-day learning path.',
+    'AI-powered career intelligence. Scan your skills against real market demand, pinpoint gaps, and get a daily 15-minute learning plan tailored to your career.',
   keywords: [
     'career development',
     'skill gap analysis',
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="bg-slate-950 text-white antialiased font-sans">
+      <body className="bg-surface-0 text-neutral-200 antialiased font-sans noise-bg">
         {children}
       </body>
     </html>

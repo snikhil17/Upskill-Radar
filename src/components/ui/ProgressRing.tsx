@@ -1,7 +1,7 @@
 'use client';
 
 interface ProgressRingProps {
-  value: number; // 0-100
+  value: number;
   size?: number;
   strokeWidth?: number;
   color?: string;
@@ -11,9 +11,9 @@ interface ProgressRingProps {
 
 export function ProgressRing({
   value,
-  size = 120,
-  strokeWidth = 8,
-  color = '#6366f1',
+  size = 100,
+  strokeWidth = 6,
+  color = '#00e06f',
   label,
   sublabel,
 }: ProgressRingProps) {
@@ -22,8 +22,8 @@ export function ProgressRing({
   const offset = circumference - (value / 100) * circumference;
 
   const getColor = () => {
-    if (value >= 75) return '#22c55e';
-    if (value >= 50) return '#eab308';
+    if (value >= 70) return '#00e06f';
+    if (value >= 45) return '#eab308';
     if (value >= 25) return '#f97316';
     return '#ef4444';
   };
@@ -39,7 +39,7 @@ export function ProgressRing({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#1e293b"
+            stroke="rgba(255,255,255,0.04)"
             strokeWidth={strokeWidth}
           />
           <circle
@@ -53,17 +53,18 @@ export function ProgressRing({
             strokeDashoffset={offset}
             strokeLinecap="round"
             className="transition-all duration-1000 ease-out"
+            style={{ filter: `drop-shadow(0 0 6px ${ringColor}40)` }}
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-bold text-white">{value}</span>
+          <span className="text-xl font-bold text-white tabular-nums">{value}</span>
           {sublabel && (
-            <span className="text-xs text-slate-400">{sublabel}</span>
+            <span className="text-[10px] text-neutral-500 uppercase tracking-wider">{sublabel}</span>
           )}
         </div>
       </div>
       {label && (
-        <span className="mt-2 text-sm font-medium text-slate-300">{label}</span>
+        <span className="mt-2 text-xs font-medium text-neutral-400">{label}</span>
       )}
     </div>
   );

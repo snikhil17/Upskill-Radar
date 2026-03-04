@@ -6,7 +6,8 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
-  padding?: 'sm' | 'md' | 'lg';
+  padding?: 'sm' | 'md' | 'lg' | 'none';
+  glow?: boolean;
 }
 
 export function Card({
@@ -14,18 +15,24 @@ export function Card({
   className = '',
   hover = false,
   padding = 'md',
+  glow = false,
 }: CardProps) {
   const paddingClasses = {
+    none: '',
     sm: 'p-4',
-    md: 'p-6',
-    lg: 'p-8',
+    md: 'p-5',
+    lg: 'p-6',
   };
 
   return (
     <div
-      className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl ${paddingClasses[padding]} ${
-        hover ? 'hover:border-slate-600 hover:bg-slate-800/70 transition-all duration-200' : ''
-      } ${className}`}
+      className={`
+        bg-surface-2/80 backdrop-blur-sm rounded-xl border border-white/[0.06]
+        ${paddingClasses[padding]}
+        ${hover ? 'hover:border-white/[0.12] hover:bg-surface-2 transition-all duration-300' : ''}
+        ${glow ? 'radar-glow' : ''}
+        ${className}
+      `}
     >
       {children}
     </div>
@@ -50,7 +57,7 @@ export function CardTitle({
   className?: string;
 }) {
   return (
-    <h3 className={`text-lg font-semibold text-white ${className}`}>
+    <h3 className={`text-sm font-semibold text-white tracking-wide ${className}`}>
       {children}
     </h3>
   );

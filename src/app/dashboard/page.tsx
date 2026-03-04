@@ -30,24 +30,13 @@ export default function DashboardPage() {
     setAuthenticated,
   } = useAppStore();
 
-  // Load demo data if no analysis exists
   useEffect(() => {
     if (!analysis) {
       const skills = mockUserProfile.skills.map((s) => s.name);
-      const mockAnalysis = generateMockAnalysis(
-        mockUserProfile.currentRole,
-        skills
-      );
+      const mockAnalysis = generateMockAnalysis(mockUserProfile.currentRole, skills);
       setAnalysis(mockAnalysis);
-      setLearningPlan(
-        generateMockLearningPlan(mockAnalysis.topGaps.map((g) => g.skill))
-      );
-      setWeatherReport(
-        generateMockWeatherReport(
-          mockUserProfile.currentRole,
-          mockUserProfile.location
-        )
-      );
+      setLearningPlan(generateMockLearningPlan(mockAnalysis.topGaps.map((g) => g.skill)));
+      setWeatherReport(generateMockWeatherReport(mockUserProfile.currentRole, mockUserProfile.location));
       setUser(mockUserProfile);
       setAuthenticated(true);
     }
@@ -55,36 +44,33 @@ export default function DashboardPage() {
 
   if (!analysis) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full" />
+      <div className="min-h-screen bg-surface-0 flex items-center justify-center">
+        <div className="animate-spin w-6 h-6 border-2 border-radar-500 border-t-transparent rounded-full" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-surface-0">
       <DashboardNav activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Overview Tab */}
         {activeTab === 'overview' && (
-          <div className="space-y-8">
-            {/* Welcome header */}
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h1 className="text-2xl font-bold text-white">
+              <h1 className="text-xl font-bold text-white">
                 Your Skill Radar
               </h1>
-              <p className="text-slate-400 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 {user?.currentRole || 'Software Engineer'} &middot;{' '}
                 {user?.location || 'San Francisco, CA'}
               </p>
             </div>
 
-            {/* Score cards */}
             <ScoreCards analysis={analysis} />
 
-            {/* Main content grid */}
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-4">
               <SkillGapCard gaps={analysis.topGaps} />
               <TrendingSkillsCard
                 rising={analysis.risingSkills}
@@ -92,26 +78,16 @@ export default function DashboardPage() {
               />
             </div>
 
-            {/* Quick learning plan preview */}
-            {learningPlan && (
-              <div>
-                <h2 className="text-lg font-semibold text-white mb-4">
-                  Today&apos;s Learning
-                </h2>
-                <LearningPlanCard plan={learningPlan} />
-              </div>
-            )}
+            {learningPlan && <LearningPlanCard plan={learningPlan} />}
           </div>
         )}
 
         {/* Learning Tab */}
         {activeTab === 'learning' && learningPlan && (
-          <div className="space-y-8">
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h1 className="text-2xl font-bold text-white">
-                Your Learning Plan
-              </h1>
-              <p className="text-slate-400 mt-1">
+              <h1 className="text-xl font-bold text-white">Learning Plan</h1>
+              <p className="text-xs text-neutral-500 mt-1">
                 15 minutes per day to close your skill gaps
               </p>
             </div>
@@ -121,13 +97,11 @@ export default function DashboardPage() {
 
         {/* Weather Tab */}
         {activeTab === 'weather' && weatherReport && (
-          <div className="space-y-8">
+          <div className="space-y-6 animate-fade-in max-w-2xl">
             <div>
-              <h1 className="text-2xl font-bold text-white">
-                Career Weather Report
-              </h1>
-              <p className="text-slate-400 mt-1">
-                Your weekly career intelligence briefing
+              <h1 className="text-xl font-bold text-white">Career Weather</h1>
+              <p className="text-xs text-neutral-500 mt-1">
+                Weekly career intelligence briefing
               </p>
             </div>
             <WeatherReportCard report={weatherReport} />
@@ -136,16 +110,18 @@ export default function DashboardPage() {
 
         {/* Profile Tab */}
         {activeTab === 'profile' && user && (
-          <div className="space-y-8">
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h1 className="text-2xl font-bold text-white">Your Profile</h1>
-              <p className="text-slate-400 mt-1">
-                Manage your skills and career information
+              <h1 className="text-xl font-bold text-white">Profile</h1>
+              <p className="text-xs text-neutral-500 mt-1">
+                Your skills and career information
               </p>
             </div>
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-4">
               <ProfileCard user={user} />
-              {analysis && <ScoreCards analysis={analysis} />}
+              <div>
+                {analysis && <ScoreCards analysis={analysis} />}
+              </div>
             </div>
           </div>
         )}

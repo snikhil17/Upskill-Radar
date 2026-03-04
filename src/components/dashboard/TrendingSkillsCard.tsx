@@ -1,6 +1,6 @@
 'use client';
 
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { TrendingSkill } from '@/types';
@@ -13,32 +13,32 @@ interface TrendingSkillsCardProps {
 export function TrendingSkillsCard({ rising, declining }: TrendingSkillsCardProps) {
   return (
     <Card>
-      <h3 className="text-lg font-semibold text-white mb-6">Skill Trends</h3>
+      <div className="flex items-center gap-2 mb-5">
+        <TrendingUp className="w-4 h-4 text-radar-400" />
+        <h3 className="text-sm font-semibold text-white">Skill Trends</h3>
+      </div>
 
-      {/* Rising Skills */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <TrendingUp className="w-4 h-4 text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400">Rising in Demand</span>
+      <div className="mb-5">
+        <div className="text-[10px] uppercase tracking-widest text-radar-500 font-semibold mb-2.5">
+          Rising demand
         </div>
-
-        <div className="space-y-2">
+        <div className="space-y-1">
           {rising.slice(0, 6).map((skill, index) => (
             <div
               key={index}
-              className="flex items-center justify-between py-2 px-3 rounded-lg bg-slate-900/30"
+              className="flex items-center justify-between py-2 px-3 rounded-md bg-surface-1/60 hover:bg-surface-1 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-500 w-4">
-                  {index + 1}.
+              <div className="flex items-center gap-2.5">
+                <span className="text-[10px] text-neutral-600 font-mono w-4 tabular-nums">
+                  {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-sm text-white">{skill.name}</span>
+                <span className="text-xs text-neutral-200">{skill.name}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Badge variant="success" size="sm">
+              <div className="flex items-center gap-2.5">
+                <Badge variant="success">
                   +{skill.growthRate}%
                 </Badge>
-                <span className="text-xs text-slate-500 w-20 text-right">
+                <span className="text-[10px] text-neutral-600 w-16 text-right font-mono">
                   {skill.timeToLearn}
                 </span>
               </div>
@@ -47,21 +47,18 @@ export function TrendingSkillsCard({ rising, declining }: TrendingSkillsCardProp
         </div>
       </div>
 
-      {/* Declining Skills */}
       <div>
-        <div className="flex items-center gap-2 mb-3">
-          <TrendingDown className="w-4 h-4 text-red-400" />
-          <span className="text-sm font-medium text-red-400">Declining</span>
+        <div className="text-[10px] uppercase tracking-widest text-red-500 font-semibold mb-2.5">
+          Declining
         </div>
-
-        <div className="space-y-2">
+        <div className="space-y-1">
           {declining.map((skill, index) => (
             <div
               key={index}
-              className="flex items-center justify-between py-2 px-3 rounded-lg bg-slate-900/30"
+              className="flex items-center justify-between py-2 px-3 rounded-md bg-surface-1/40"
             >
-              <span className="text-sm text-slate-400">{skill.name}</span>
-              <Badge variant="danger" size="sm">
+              <span className="text-xs text-neutral-500">{skill.name}</span>
+              <Badge variant="danger">
                 {skill.growthRate}%
               </Badge>
             </div>
